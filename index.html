@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amane Hosting - Automated Pterodactyl Panel Provider</title>
+    <title>Amane Hosting - Automated Pterodactyl Hosting</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,12 +14,13 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
             --secondary: #8b5cf6;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --info: #06b6d4;
             --dark: #0f172a;
             --dark-light: #1e293b;
             --dark-lighter: #334155;
@@ -43,34 +44,6 @@
             height: 100%;
             z-index: -1;
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            overflow: hidden;
-        }
-
-        .gradient-bg::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            top: -100px;
-            right: -100px;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .gradient-bg::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
-            bottom: -100px;
-            left: -100px;
-            animation: float 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
         }
 
         .container {
@@ -86,7 +59,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
@@ -137,6 +110,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-primary {
@@ -147,18 +121,12 @@
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
         }
 
         .btn-success {
@@ -171,16 +139,26 @@
             color: white;
         }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 13px;
         }
 
-        .hero-content {
-            max-width: 700px;
+        /* Page Sections */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 60px 0;
         }
 
         .hero h1 {
@@ -188,9 +166,6 @@
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
@@ -199,46 +174,12 @@
             margin-bottom: 30px;
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
-
-        /* Plans Section */
-        .plans-section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 40px;
-            font-weight: 800;
-            margin-bottom: 50px;
-        }
-
+        /* Plans */
         .plans-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 40px;
         }
 
         .plan-card {
@@ -248,13 +189,11 @@
             padding: 32px;
             transition: all 0.3s;
             position: relative;
-            overflow: hidden;
         }
 
         .plan-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
         .plan-badge {
@@ -265,7 +204,7 @@
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
         }
 
@@ -299,6 +238,7 @@
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--border);
+            font-size: 14px;
         }
 
         .plan-features li:last-child {
@@ -309,16 +249,7 @@
             color: var(--success);
         }
 
-        /* Dashboard */
-        .dashboard {
-            display: none;
-            padding: 120px 0 60px;
-        }
-
-        .dashboard.active {
-            display: block;
-        }
-
+        /* Dashboard/Admin */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
@@ -326,11 +257,6 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
             gap: 20px;
-        }
-
-        .dashboard-title {
-            font-size: 32px;
-            font-weight: 800;
         }
 
         .stats-cards {
@@ -345,18 +271,13 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--primary);
         }
 
         .stat-card-icon {
             width: 48px;
             height: 48px;
             border-radius: 10px;
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(59, 130, 246, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -378,22 +299,89 @@
             margin-top: 5px;
         }
 
-        /* Server Cards */
-        .servers-grid {
-            display: grid;
-            gap: 20px;
+        /* Orders Table */
+        .table-container {
+            background: var(--dark-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--dark);
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        td {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: var(--dark);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-waiting {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--info);
+        }
+
+        .status-paid {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-expired {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .status-cancelled {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Server Card */
         .server-card {
             background: var(--dark-light);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
-            transition: all 0.3s;
-        }
-
-        .server-card:hover {
-            border-color: var(--primary);
+            margin-bottom: 20px;
         }
 
         .server-header {
@@ -409,42 +397,9 @@
             margin-bottom: 5px;
         }
 
-        .server-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .server-status.active {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-
-        .server-status.expired {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
-
-        .server-status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: currentColor;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
         .server-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -468,15 +423,59 @@
             color: var(--primary);
         }
 
-        .server-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .credentials-box {
+            background: var(--dark);
+            border: 1px solid var(--success);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .server-actions .btn {
-            padding: 8px 16px;
+        .credentials-box h4 {
+            color: var(--success);
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: var(--dark-light);
+            border-radius: 6px;
+            margin-bottom: 8px;
             font-size: 13px;
+        }
+
+        .credential-label {
+            color: var(--text-muted);
+        }
+
+        .credential-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
         }
 
         /* Modal */
@@ -534,10 +533,6 @@
             background: var(--danger);
         }
 
-        .modal-header {
-            margin-bottom: 24px;
-        }
-
         .modal-title {
             font-size: 24px;
             font-weight: 700;
@@ -547,6 +542,7 @@
         .modal-subtitle {
             color: var(--text-muted);
             font-size: 14px;
+            margin-bottom: 24px;
         }
 
         .form-group {
@@ -568,13 +564,14 @@
             border-radius: 8px;
             color: var(--text);
             font-size: 14px;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .form-hint {
@@ -583,17 +580,13 @@
             margin-top: 5px;
         }
 
-        /* Payment Section */
-        .payment-container {
+        /* Payment */
+        .order-summary {
             background: var(--dark);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 24px;
+            padding: 20px;
             margin: 20px 0;
-        }
-
-        .order-summary {
-            margin-bottom: 20px;
         }
 
         .order-summary h4 {
@@ -607,13 +600,15 @@
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid var(--border);
+            font-size: 14px;
         }
 
         .order-item:last-child {
             border-bottom: none;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--primary);
+            margin-top: 5px;
         }
 
         .payment-methods {
@@ -636,7 +631,7 @@
         .payment-method:hover,
         .payment-method.selected {
             border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.05);
+            background: rgba(59, 130, 246, 0.05);
         }
 
         .payment-method input[type="radio"] {
@@ -658,31 +653,15 @@
             color: var(--dark);
         }
 
-        /* Countdown Timer */
-        .countdown-timer {
+        .payment-info {
             background: var(--dark);
-            border: 2px solid var(--warning);
+            border: 2px solid var(--info);
             border-radius: 12px;
             padding: 20px;
-            text-align: center;
             margin: 20px 0;
         }
 
-        .countdown-title {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .countdown-value {
-            font-size: 48px;
-            font-weight: 800;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--warning);
-        }
-
-        /* QRIS Display */
-        .qris-container {
+        .payment-qr {
             text-align: center;
             padding: 20px;
             background: white;
@@ -690,66 +669,18 @@
             margin: 20px 0;
         }
 
-        .qris-container img {
+        .payment-qr img {
             max-width: 300px;
             width: 100%;
-            height: auto;
         }
 
-        /* Settings Section */
-        .settings-section {
-            background: var(--dark-light);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 30px;
-        }
-
-        .settings-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .settings-grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: var(--dark);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            gap: 15px;
-        }
-
-        .setting-info h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .setting-info p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .config-value {
-            background: var(--dark-light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 8px 12px;
+        .countdown {
+            text-align: center;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--primary);
-            margin-top: 10px;
-            word-break: break-all;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--warning);
+            margin: 20px 0;
         }
 
         /* Alert */
@@ -758,8 +689,20 @@
             border-radius: 8px;
             margin-bottom: 20px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
+            font-size: 14px;
+        }
+
+        .alert i {
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        .alert-info {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--info);
+            color: var(--info);
         }
 
         .alert-success {
@@ -780,10 +723,64 @@
             color: var(--danger);
         }
 
-        .alert-info {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid var(--primary);
+        /* Settings */
+        .settings-section {
+            background: var(--dark-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .settings-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            gap: 15px;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .setting-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .config-value {
+            background: var(--dark-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
             color: var(--primary);
+            margin-top: 8px;
+            word-break: break-all;
         }
 
         /* Toast */
@@ -811,32 +808,24 @@
             transform: translateX(0);
         }
 
-        .toast.success {
-            border-color: var(--success);
-        }
-
-        .toast.error {
-            border-color: var(--danger);
-        }
+        .toast.success { border-color: var(--success); }
+        .toast.error { border-color: var(--danger); }
+        .toast.info { border-color: var(--info); }
 
         .toast i {
-            font-size: 24px;
+            font-size: 20px;
         }
 
-        .toast.success i {
-            color: var(--success);
-        }
-
-        .toast.error i {
-            color: var(--danger);
-        }
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast.info i { color: var(--info); }
 
         /* Loading */
         .loading-spinner {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(99, 102, 241, 0.3);
+            border: 3px solid rgba(59, 130, 246, 0.3);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -852,7 +841,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             align-items: center;
             justify-content: center;
@@ -874,6 +863,34 @@
             margin-bottom: 20px;
         }
 
+        /* Login Page */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: var(--dark-light);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-box h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .login-box p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -882,10 +899,6 @@
 
             .hero h1 {
                 font-size: 32px;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
             }
 
             .plans-grid {
@@ -897,17 +910,21 @@
                 align-items: flex-start;
             }
 
-            .server-actions {
-                width: 100%;
-            }
-
-            .server-actions .btn {
-                flex: 1;
+            .server-details {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .setting-item {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 10px;
             }
 
             .toast {
@@ -917,60 +934,36 @@
             }
         }
 
-        /* Credentials Display */
-        .credentials-box {
-            background: var(--dark);
-            border: 2px solid var(--success);
-            border-radius: 12px;
-            padding: 24px;
-            margin: 20px 0;
-        }
-
-        .credentials-box h4 {
-            color: var(--success);
-            margin-bottom: 15px;
+        .tab-buttons {
             display: flex;
-            align-items: center;
             gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
         }
 
-        .credential-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: var(--dark-light);
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .credential-label {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .credential-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .copy-btn {
+        .tab-btn {
+            padding: 10px 20px;
             background: transparent;
             border: none;
-            color: var(--primary);
+            color: var(--text-muted);
+            font-weight: 600;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
             transition: all 0.3s;
+            border-bottom: 2px solid transparent;
         }
 
-        .copy-btn:hover {
-            background: rgba(99, 102, 241, 0.1);
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
@@ -982,244 +975,304 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <i class="fas fa-server"></i>
+                    <i class="fas fa-cube"></i>
                     Amane Hosting
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#plans">Plans</a></li>
-                    <li><a href="#" onclick="showDashboard()">Dashboard</a></li>
-                    <li><a href="#" onclick="showSettings()">Settings</a></li>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('orders')">My Orders</a></li>
+                    <li><a href="#" onclick="showPage('servers')">My Servers</a></li>
                 </ul>
-                <button class="btn btn-primary" onclick="showDashboard()">
-                    <i class="fas fa-user"></i>
-                    Dashboard
+                <button class="btn btn-primary btn-sm" onclick="showPage('owner-login')" id="ownerBtn">
+                    <i class="fas fa-user-shield"></i>
+                    Owner Login
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Automated Pterodactyl Panel Hosting</h1>
-                <p>Deploy game servers instantly with our fully automated system. Payment via Pakasir, instant activation, and auto-management included.</p>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="#plans" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i>
-                        Get Started
-                    </a>
-                    <button class="btn btn-secondary" onclick="showDashboard()">
-                        View Dashboard
-                    </button>
-                </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value">99.9%</div>
-                        <div class="stat-label">Uptime</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">&lt;5min</div>
-                        <div class="stat-label">Setup Time</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">24/7</div>
-                        <div class="stat-label">Support</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">Auto</div>
-                        <div class="stat-label">Management</div>
-                    </div>
-                </div>
+    <!-- Home Page -->
+    <div class="page active" id="homePage">
+        <section class="hero">
+            <div class="container">
+                <h1>Automated Pterodactyl Amane Hosting</h1>
+                <p>Order your game server panel instantly. Automatic setup, instant activation, and professional management.</p>
+                <button class="btn btn-primary" onclick="document.getElementById('plansSection').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fas fa-rocket"></i>
+                    View Plans
+                </button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Plans Section -->
-    <section class="plans-section" id="plans">
-        <div class="container">
-            <h2 class="section-title">Choose Your Plan</h2>
-            <div class="plans-grid" id="plansGrid"></div>
-        </div>
-    </section>
+        <section id="plansSection" style="padding: 60px 0;">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 40px;">Choose Your Plan</h2>
+                <div class="plans-grid" id="plansGrid"></div>
+            </div>
+        </section>
+    </div>
 
-    <!-- Dashboard Section -->
-    <section class="dashboard" id="dashboard">
+    <!-- Orders Page -->
+    <div class="page" id="ordersPage">
         <div class="container">
             <div class="dashboard-header">
                 <div>
-                    <h2 class="dashboard-title">Dashboard</h2>
-                    <p style="color: var(--text-muted);">Manage your servers and orders</p>
+                    <h2 style="font-size: 32px; font-weight: 800;">My Orders</h2>
+                    <p style="color: var(--text-muted);">Track your order status</p>
                 </div>
-                <button class="btn btn-primary" onclick="openOrderModal()">
-                    <i class="fas fa-plus"></i>
-                    Order New Server
+            </div>
+            <div class="table-container" id="ordersTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Servers Page -->
+    <div class="page" id="serversPage">
+        <div class="container">
+            <div class="dashboard-header">
+                <div>
+                    <h2 style="font-size: 32px; font-weight: 800;">My Servers</h2>
+                    <p style="color: var(--text-muted);">Manage your active servers</p>
+                </div>
+            </div>
+            <div id="serversContainer"></div>
+        </div>
+    </div>
+
+    <!-- Owner Login Page -->
+    <div class="page" id="ownerLoginPage">
+        <div class="login-container">
+            <div class="login-box">
+                <h2><i class="fas fa-shield-alt"></i> Owner Access</h2>
+                <p>Enter your credentials to access admin panel</p>
+                <form id="ownerLoginForm">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" id="ownerUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="ownerPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Owner Dashboard -->
+    <div class="page" id="ownerDashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div>
+                    <h2 style="font-size: 32px; font-weight: 800;">Owner Dashboard</h2>
+                    <p style="color: var(--text-muted);">System management and configuration</p>
+                </div>
+                <button class="btn btn-danger btn-sm" onclick="ownerLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
                 </button>
             </div>
 
             <div class="stats-cards">
                 <div class="stat-card">
-                    <div class="stat-card-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="stat-card-value" id="totalServers">0</div>
+                    <div class="stat-card-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="stat-card-value" id="totalOrders">0</div>
+                    <div class="stat-card-label">Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-card-value" id="pendingOrders">0</div>
+                    <div class="stat-card-label">Pending Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-server"></i></div>
+                    <div class="stat-card-value" id="activeServers">0</div>
                     <div class="stat-card-label">Active Servers</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-card-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-card-value" id="expiringServers">0</div>
-                    <div class="stat-card-label">Expiring Soon</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <div class="stat-card-value" id="totalSpent">Rp 0</div>
-                    <div class="stat-card-label">Total Spent</div>
+                    <div class="stat-card-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="stat-card-value" id="totalRevenue">Rp 0</div>
+                    <div class="stat-card-label">Total Revenue</div>
                 </div>
             </div>
 
-            <!-- Settings Panel -->
-            <div id="settingsPanel" style="display: none;">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('orders-tab')">Orders</button>
+                <button class="tab-btn" onclick="switchTab('servers-tab')">Servers</button>
+                <button class="tab-btn" onclick="switchTab('settings-tab')">Settings</button>
+            </div>
+
+            <div class="tab-content active" id="orders-tab">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Email</th>
+                                <th>Plan</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ownerOrdersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="servers-tab">
+                <div id="ownerServersContainer"></div>
+            </div>
+
+            <div class="tab-content" id="settings-tab">
                 <div class="settings-section">
                     <h3 class="settings-title">
                         <i class="fas fa-cog"></i>
-                        Owner Configuration
+                        System Configuration
                     </h3>
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle"></i>
-                        <div>Configure these settings to enable automatic server provisioning and payment processing.</div>
+                        <div>Configure these settings to enable automatic server provisioning and payment processing via Pakasir.</div>
                     </div>
                     <div class="settings-grid">
                         <div class="setting-item">
-                            <div class="setting-info" style="flex: 1;">
-                                <h4>Owner Access Key</h4>
-                                <p>Master key for accessing admin panel</p>
-                                <div class="config-value" id="displayOwnerKey">Not configured</div>
-                            </div>
-                            <button class="btn btn-secondary" onclick="openOwnerKeyModal()">Configure</button>
-                        </div>
-                        <div class="setting-item">
-                            <div class="setting-info" style="flex: 1;">
+                            <div class="setting-info">
                                 <h4>Pterodactyl API Key</h4>
                                 <p>Application API key from your panel</p>
                                 <div class="config-value" id="displayApiKey">Not configured</div>
                             </div>
-                            <button class="btn btn-secondary" onclick="openApiModal()">Configure</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openConfigModal('api')">Configure</button>
                         </div>
                         <div class="setting-item">
-                            <div class="setting-info" style="flex: 1;">
-                                <h4>Panel URL</h4>
-                                <p>Your Pterodactyl panel domain</p>
+                            <div class="setting-info">
+                                <h4>Panel Domain</h4>
+                                <p>Your Pterodactyl panel URL</p>
                                 <div class="config-value" id="displayDomain">Not configured</div>
                             </div>
-                            <button class="btn btn-secondary" onclick="openDomainModal()">Configure</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openConfigModal('domain')">Configure</button>
                         </div>
                         <div class="setting-item">
-                            <div class="setting-info" style="flex: 1;">
+                            <div class="setting-info">
                                 <h4>Pakasir API Key</h4>
-                                <p>From app.pakasir.com settings</p>
+                                <p>From app.pakasir.com → Settings → API</p>
                                 <div class="config-value" id="displayPakasirKey">Not configured</div>
                             </div>
-                            <button class="btn btn-secondary" onclick="openPakasirModal()">Configure</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openConfigModal('pakasir')">Configure</button>
                         </div>
                         <div class="setting-item">
-                            <div class="setting-info" style="flex: 1;">
-                                <h4>Pakasir Merchant Code</h4>
-                                <p>Your merchant/store code</p>
-                                <div class="config-value" id="displayMerchantCode">Not configured</div>
+                            <div class="setting-info">
+                                <h4>Pakasir Merchant ID</h4>
+                                <p>Your merchant/store ID</p>
+                                <div class="config-value" id="displayMerchantId">Not configured</div>
                             </div>
-                            <button class="btn btn-secondary" onclick="openMerchantModal()">Configure</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openConfigModal('merchant')">Configure</button>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>Default Node ID</h4>
+                                <p>Node ID for server deployment</p>
+                                <div class="config-value" id="displayNodeId">Not configured</div>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="openConfigModal('node')">Configure</button>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h4>Default Location ID</h4>
+                                <p>Location ID for servers</p>
+                                <div class="config-value" id="displayLocationId">Not configured</div>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="openConfigModal('location')">Configure</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Servers List -->
-            <div class="servers-grid" id="serversGrid"></div>
         </div>
-    </section>
+    </div>
 
     <!-- Order Modal -->
     <div class="modal" id="orderModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('orderModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Order New Server</h3>
-                <p class="modal-subtitle">Choose your plan and proceed to payment</p>
-            </div>
+            <button class="modal-close" onclick="closeModal('orderModal')"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">Order Server Panel</h3>
+            <p class="modal-subtitle">Complete the form to place your order</p>
             <form id="orderForm">
                 <div class="form-group">
-                    <label class="form-label">Select Plan</label>
-                    <select class="form-control" id="planSelect" required onchange="updateOrderSummary()">
-                        <option value="">Choose a plan...</option>
-                    </select>
+                    <label class="form-label">Plan</label>
+                    <input type="text" class="form-control" id="orderPlanName" readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Server Name</label>
                     <input type="text" class="form-control" id="serverName" placeholder="My Server" required>
-                    <div class="form-hint">Choose a name for your server</div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="serverEmail" placeholder="you@example.com" required>
-                    <div class="form-hint">For panel access credentials</div>
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="customerEmail" placeholder="your@email.com" required>
+                    <div class="form-hint">Panel credentials will be sent to this email</div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Duration</label>
                     <select class="form-control" id="duration" required onchange="updateOrderSummary()">
-                        <option value="7">7 Days</option>
-                        <option value="15">15 Days</option>
-                        <option value="30" selected>30 Days (1 Month)</option>
+                        <option value="30">30 Days (1 Month)</option>
                         <option value="60">60 Days (2 Months)</option>
                         <option value="90">90 Days (3 Months)</option>
                     </select>
                 </div>
-                <div class="payment-container">
-                    <div class="order-summary">
-                        <h4>Order Summary</h4>
-                        <div class="order-item">
-                            <span>Plan:</span>
-                            <span id="summaryPlan">-</span>
-                        </div>
-                        <div class="order-item">
-                            <span>Duration:</span>
-                            <span id="summaryDuration">-</span>
-                        </div>
-                        <div class="order-item">
-                            <span>Total:</span>
-                            <span id="summaryTotal">Rp 0</span>
-                        </div>
+                <div class="order-summary">
+                    <h4>Order Summary</h4>
+                    <div class="order-item">
+                        <span>Plan:</span>
+                        <span id="summaryPlan">-</span>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Payment Method</label>
-                        <div class="payment-methods">
-                            <label class="payment-method">
-                                <input type="radio" name="payment" value="qris" required>
-                                <div class="payment-icon">QRIS</div>
-                                <span>QRIS - All E-Wallets</span>
-                            </label>
-                            <label class="payment-method">
-                                <input type="radio" name="payment" value="bank_transfer">
-                                <div class="payment-icon">BANK</div>
-                                <span>Bank Transfer</span>
-                            </label>
-                            <label class="payment-method">
-                                <input type="radio" name="payment" value="ewallet">
-                                <div class="payment-icon">E-WALLET</div>
-                                <span>GoPay / OVO / DANA</span>
-                            </label>
-                        </div>
+                    <div class="order-item">
+                        <span>Duration:</span>
+                        <span id="summaryDuration">-</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Total:</span>
+                        <span id="summaryTotal">Rp 0</span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;" id="orderBtn">
+                <div class="form-group">
+                    <label class="form-label">Payment Method</label>
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="qris" checked>
+                            <div class="payment-icon">QRIS</div>
+                            <span>QRIS - All E-Wallets</span>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="bank_transfer">
+                            <div class="payment-icon">BANK</div>
+                            <span>Bank Transfer</span>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="ewallet">
+                            <div class="payment-icon">E-WALLET</div>
+                            <span>E-Wallet (GoPay/OVO/DANA)</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
                     <i class="fas fa-shopping-cart"></i>
-                    Proceed to Payment
+                    Place Order
                 </button>
             </form>
         </div>
@@ -1228,151 +1281,46 @@
     <!-- Payment Modal -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closePaymentModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Complete Payment</h3>
-                <p class="modal-subtitle">Scan QR code or complete payment</p>
-            </div>
-            <div class="countdown-timer">
-                <div class="countdown-title">Time Remaining</div>
-                <div class="countdown-value" id="countdownTimer">15:00</div>
-            </div>
+            <button class="modal-close" onclick="cancelPayment()"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">Complete Payment</h3>
+            <p class="modal-subtitle">Order ID: <span id="paymentOrderId"></span></p>
+            
             <div class="alert alert-info">
                 <i class="fas fa-info-circle"></i>
-                <div>Payment is being monitored automatically. Your server will be activated immediately after payment confirmation.</div>
+                <div>
+                    <strong>Payment will be verified automatically</strong><br>
+                    Your server will be activated immediately after payment confirmation.
+                </div>
             </div>
-            <div id="qrisDisplay"></div>
-            <div id="paymentInstructions"></div>
+
+            <div class="countdown" id="paymentCountdown">15:00</div>
+
+            <div id="paymentDisplay"></div>
+
             <div style="text-align: center; margin-top: 20px;">
-                <button class="btn btn-secondary" onclick="checkPaymentStatus()">
+                <button class="btn btn-secondary" onclick="checkPaymentStatus()" style="margin-right: 10px;">
                     <i class="fas fa-sync"></i>
-                    Check Payment Status
+                    Check Status
+                </button>
+                <button class="btn btn-danger" onclick="cancelPayment()">
+                    Cancel
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
+    <!-- Config Modal -->
+    <div class="modal" id="configModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" style="color: var(--success);">
-                    <i class="fas fa-check-circle"></i>
-                    Payment Successful!
-                </h3>
-                <p class="modal-subtitle">Your server has been created</p>
-            </div>
-            <div class="credentials-box" id="credentialsDisplay"></div>
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>
-                <div>Your server is now active and ready to use!</div>
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="closeSuccessModal()">
-                <i class="fas fa-arrow-right"></i>
-                Go to Dashboard
-            </button>
-        </div>
-    </div>
-
-    <!-- Configuration Modals -->
-    <div class="modal" id="ownerKeyModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('ownerKeyModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Set Owner Access Key</h3>
-                <p class="modal-subtitle">Create a master password for admin access</p>
-            </div>
-            <form id="ownerKeyForm">
+            <button class="modal-close" onclick="closeModal('configModal')"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title" id="configModalTitle">Configuration</h3>
+            <form id="configForm">
                 <div class="form-group">
-                    <label class="form-label">Access Key</label>
-                    <input type="password" class="form-control" id="ownerKey" required>
-                    <div class="form-hint">This key is required to access settings</div>
+                    <label class="form-label" id="configLabel">Value</label>
+                    <input type="text" class="form-control" id="configValue" required>
+                    <div class="form-hint" id="configHint"></div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Key</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="apiModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('apiModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Pterodactyl API Key</h3>
-                <p class="modal-subtitle">Application API key from your panel</p>
-            </div>
-            <form id="apiForm">
-                <div class="form-group">
-                    <label class="form-label">API Key</label>
-                    <input type="text" class="form-control" id="apiKey" placeholder="ptla_..." required>
-                    <div class="form-hint">Found in: Admin Panel → Application API → Create New</div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Key</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="domainModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('domainModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Panel URL</h3>
-                <p class="modal-subtitle">Your Pterodactyl panel domain</p>
-            </div>
-            <form id="domainForm">
-                <div class="form-group">
-                    <label class="form-label">Panel URL</label>
-                    <input type="url" class="form-control" id="panelDomain" placeholder="https://panel.example.com" required>
-                    <div class="form-hint">Include https://</div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save URL</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="pakasirModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('pakasirModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Pakasir API Key</h3>
-                <p class="modal-subtitle">From app.pakasir.com</p>
-            </div>
-            <form id="pakasirForm">
-                <div class="form-group">
-                    <label class="form-label">API Key</label>
-                    <input type="text" class="form-control" id="pakasirKey" required>
-                    <div class="form-hint">Found in: Settings → API → Generate Key</div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Key</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="merchantModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('merchantModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Merchant Code</h3>
-                <p class="modal-subtitle">Your Pakasir merchant/store code</p>
-            </div>
-            <form id="merchantForm">
-                <div class="form-group">
-                    <label class="form-label">Merchant Code</label>
-                    <input type="text" class="form-control" id="merchantCode" required>
-                    <div class="form-hint">Found in: Settings → Store Information</div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Code</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Configuration</button>
             </form>
         </div>
     </div>
@@ -1381,8 +1329,8 @@
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <div>
-            <strong id="toastTitle">Success</strong>
-            <p id="toastMessage" style="margin: 0; font-size: 14px; color: var(--text-muted);"></p>
+            <strong id="toastTitle"></strong>
+            <p id="toastMessage" style="margin: 0; font-size: 13px; color: var(--text-muted);"></p>
         </div>
     </div>
 
@@ -1397,14 +1345,20 @@
     <script>
         // Configuration
         const CONFIG = {
-            ownerKey: localStorage.getItem('owner_key') || '',
+            owner: {
+                username: localStorage.getItem('owner_username') || 'admin',
+                password: localStorage.getItem('owner_password') || 'admin123',
+                loggedIn: sessionStorage.getItem('owner_logged_in') === 'true'
+            },
             pterodactyl: {
                 apiKey: localStorage.getItem('ptero_api_key') || '',
-                domain: localStorage.getItem('ptero_domain') || ''
+                domain: localStorage.getItem('ptero_domain') || '',
+                nodeId: localStorage.getItem('ptero_node_id') || '1',
+                locationId: localStorage.getItem('ptero_location_id') || '1'
             },
             pakasir: {
                 apiKey: localStorage.getItem('pakasir_api_key') || '',
-                merchantCode: localStorage.getItem('merchant_code') || ''
+                merchantId: localStorage.getItem('pakasir_merchant_id') || ''
             }
         };
 
@@ -1413,71 +1367,75 @@
             {
                 id: 'starter',
                 name: 'Starter',
-                price: 15000,
-                ram: 2048,
+                price: 5000,
+                ram: 3048,
                 cpu: 100,
-                disk: 5120,
+                disk: 3048,
                 databases: 1,
                 backups: 1,
+                allocations: 1,
                 featured: false,
-                features: ['2GB RAM', '100% CPU', '5GB SSD', '1 Database', '1 Backup', 'DDoS Protection']
+                features: ['3GB RAM', '100% CPU', '3GB SSD', '1 Database', '1 Backup', 'DDoS Protection']
             },
             {
-                id: 'professional',
-                name: 'Professional',
-                price: 30000,
-                ram: 4096,
+                id: 'Mid High',
+                name: 'Mid High',
+                price: 10000,
+                ram: 8096,
                 cpu: 200,
-                disk: 10240,
-                databases: 2,
-                backups: 3,
+                disk: 8096,
+                databases: 1,
+                backups: 1,
+                allocations: 1,
                 featured: true,
-                features: ['4GB RAM', '200% CPU', '10GB SSD', '2 Databases', '3 Backups', 'DDoS Protection', 'Priority Support']
+                features: ['8GB RAM', '200% CPU', '8GB SSD', '1 Databases', '1 Backups', 'DDoS Protection', 'Priority Support']
             },
             {
-                id: 'enterprise',
-                name: 'Enterprise',
-                price: 50000,
-                ram: 8192,
-                cpu: 400,
-                disk: 20480,
+                id: 'Max High',
+                name: 'Max High',
+                price: 15000,
+                ram: 0,
+                cpu: 0,
+                disk: 0,
                 databases: 5,
                 backups: 5,
+                allocations: 3,
                 featured: false,
-                features: ['8GB RAM', '400% CPU', '20GB SSD', '5 Databases', '5 Backups', 'DDoS Protection', '24/7 Support', 'Dedicated IP']
+                features: ['UNLI RAM', 'UNLI CPU', 'UNLI SSD', '5 Databases', '5 Backups', 'DDoS Protection', '24/7 Support', 'Dedicated IP']
             }
         ];
 
         // Database
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
         let servers = JSON.parse(localStorage.getItem('servers')) || [];
         let currentOrder = null;
         let paymentCheckInterval = null;
         let countdownInterval = null;
+        let currentConfigType = null;
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             loadPlans();
+            loadOrders();
             loadServers();
-            updateStats();
-            loadConfig();
+            updateOwnerStats();
             setupPaymentMethods();
             startExpiryCheck();
             
-            // Setup forms
+            if (CONFIG.owner.loggedIn) {
+                document.getElementById('ownerBtn').innerHTML = '<i class="fas fa-tachometer-alt"></i> Owner Panel';
+                document.getElementById('ownerBtn').onclick = () => showPage('owner-dashboard');
+            }
+            
             document.getElementById('orderForm').addEventListener('submit', handleOrder);
-            document.getElementById('ownerKeyForm').addEventListener('submit', handleOwnerKeyConfig);
-            document.getElementById('apiForm').addEventListener('submit', handleApiConfig);
-            document.getElementById('domainForm').addEventListener('submit', handleDomainConfig);
-            document.getElementById('pakasirForm').addEventListener('submit', handlePakasirConfig);
-            document.getElementById('merchantForm').addEventListener('submit', handleMerchantConfig);
+            document.getElementById('ownerLoginForm').addEventListener('submit', handleOwnerLogin);
+            document.getElementById('configForm').addEventListener('submit', handleConfigSave);
         });
 
+        // Load Plans
         function loadPlans() {
-            const plansGrid = document.getElementById('plansGrid');
-            const planSelect = document.getElementById('planSelect');
-            
-            plansGrid.innerHTML = '';
-            planSelect.innerHTML = '<option value="">Choose a plan...</option>';
+            const grid = document.getElementById('plansGrid');
+            grid.innerHTML = '';
             
             PLANS.forEach(plan => {
                 const card = document.createElement('div');
@@ -1489,37 +1447,383 @@
                     <ul class="plan-features">
                         ${plan.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
                     </ul>
-                    <button class="btn btn-primary" style="width: 100%;" onclick="orderPlan('${plan.id}')">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="selectPlan('${plan.id}')">
                         Order Now
                     </button>
                 `;
-                plansGrid.appendChild(card);
-                
-                const option = document.createElement('option');
-                option.value = plan.id;
-                option.textContent = `${plan.name} - Rp${plan.price.toLocaleString('id-ID')}/mo`;
-                planSelect.appendChild(option);
+                grid.appendChild(card);
             });
         }
 
-        function loadServers() {
-            const serversGrid = document.getElementById('serversGrid');
+        // Select Plan
+        function selectPlan(planId) {
+            const plan = PLANS.find(p => p.id === planId);
+            if (!plan) return;
             
-            if (servers.length === 0) {
-                serversGrid.innerHTML = `
-                    <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
-                        <i class="fas fa-server" style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;"></i>
-                        <h3>No Servers Yet</h3>
-                        <p>Order your first server to get started</p>
-                        <button class="btn btn-primary" onclick="openOrderModal()" style="margin-top: 20px;">
-                            Order Server
-                        </button>
+            currentOrder = { plan: plan };
+            document.getElementById('orderPlanName').value = `${plan.name} - Rp${plan.price.toLocaleString('id-ID')}/month`;
+            updateOrderSummary();
+            document.getElementById('orderModal').classList.add('active');
+        }
+
+        // Update Order Summary
+        function updateOrderSummary() {
+            if (!currentOrder || !currentOrder.plan) return;
+            
+            const duration = parseInt(document.getElementById('duration').value);
+            const total = Math.round(currentOrder.plan.price * duration / 30);
+            
+            document.getElementById('summaryPlan').textContent = currentOrder.plan.name;
+            document.getElementById('summaryDuration').textContent = duration + ' days';
+            document.getElementById('summaryTotal').textContent = 'Rp' + total.toLocaleString('id-ID');
+        }
+
+        // Handle Order
+        async function handleOrder(e) {
+            e.preventDefault();
+            
+            const serverName = document.getElementById('serverName').value;
+            const email = document.getElementById('customerEmail').value;
+            const duration = parseInt(document.getElementById('duration').value);
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const total = Math.round(currentOrder.plan.price * duration / 30);
+            
+            showLoading('Creating your order...');
+            
+            // Create order
+            const order = {
+                id: 'ORD-' + Date.now(),
+                planId: currentOrder.plan.id,
+                planName: currentOrder.plan.name,
+                serverName: serverName,
+                email: email,
+                duration: duration,
+                amount: total,
+                paymentMethod: paymentMethod,
+                status: 'pending',
+                paymentId: null,
+                paymentUrl: null,
+                createdAt: new Date().toISOString(),
+                expiresAt: null
+            };
+            
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            setTimeout(() => {
+                hideLoading();
+                closeModal('orderModal');
+                
+                // Simulate payment creation
+                order.status = 'waiting_payment';
+                order.paymentId = 'PAY-' + Date.now();
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                showPaymentModal(order);
+                
+                showToast('Order Created', 'Please complete payment to activate your server', 'info');
+            }, 1500);
+        }
+
+        // Show Payment Modal
+        function showPaymentModal(order) {
+            currentOrder = order;
+            document.getElementById('paymentOrderId').textContent = order.id;
+            
+            const modal = document.getElementById('paymentModal');
+            const display = document.getElementById('paymentDisplay');
+            
+            // Generate QRIS (simulation)
+            display.innerHTML = `
+                <div class="payment-qr">
+                    <h4 style="color: var(--dark); margin-bottom: 15px;">Scan QR Code to Pay</h4>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=PAKASIR:${order.paymentId}:${order.amount}" alt="QRIS">
+                    <p style="color: var(--dark); margin-top: 15px; font-weight: 700; font-size: 18px;">Rp${order.amount.toLocaleString('id-ID')}</p>
+                </div>
+                <div class="payment-info">
+                    <h4 style="margin-bottom: 15px;"><i class="fas fa-info-circle"></i> Payment Instructions</h4>
+                    <ol style="margin-left: 20px; font-size: 14px; line-height: 1.8;">
+                        <li>Open your e-wallet app (GoPay, OVO, DANA, etc.)</li>
+                        <li>Select "Scan QR" or "QRIS"</li>
+                        <li>Scan the QR code above</li>
+                        <li>Confirm payment amount: Rp${order.amount.toLocaleString('id-ID')}</li>
+                        <li>Complete the payment</li>
+                        <li>Wait for automatic verification (usually instant)</li>
+                    </ol>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            startPaymentCountdown(900); // 15 minutes
+            startPaymentCheck(order.id);
+        }
+
+        // Payment Countdown
+        function startPaymentCountdown(seconds) {
+            let remaining = seconds;
+            const display = document.getElementById('paymentCountdown');
+            
+            countdownInterval = setInterval(() => {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
+                if (remaining <= 0) {
+                    clearInterval(countdownInterval);
+                    cancelPayment();
+                    showToast('Payment Expired', 'Payment time has expired', 'error');
+                }
+                
+                remaining--;
+            }, 1000);
+        }
+
+        // Start Payment Check
+        function startPaymentCheck(orderId) {
+            let checkCount = 0;
+            
+            paymentCheckInterval = setInterval(() => {
+                checkCount++;
+                
+                // Simulate payment verification after 5 checks (~10 seconds for demo)
+                if (checkCount >= 5) {
+                    clearInterval(paymentCheckInterval);
+                    clearInterval(countdownInterval);
+                    handlePaymentSuccess(orderId);
+                }
+            }, 2000);
+        }
+
+        // Handle Payment Success
+        async function handlePaymentSuccess(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            showLoading('Payment confirmed! Creating your server...');
+            
+            // Update order status
+            order.status = 'paid';
+            order.paidAt = new Date().toISOString();
+            
+            // Generate credentials
+            const username = 'user_' + Date.now().toString().slice(-8);
+            const password = generatePassword(16);
+            const panelId = Math.floor(Math.random() * 10000) + 1000;
+            
+            // Create server
+            const server = {
+                id: 'SRV-' + Date.now(),
+                orderId: order.id,
+                panelId: panelId,
+                name: order.serverName,
+                email: order.email,
+                planId: order.planId,
+                planName: order.planName,
+                ...PLANS.find(p => p.id === order.planId),
+                username: username,
+                password: password,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                expiresAt: new Date(Date.now() + order.duration * 24 * 60 * 60 * 1000).toISOString()
+            };
+            
+            servers.push(server);
+            order.serverId = server.id;
+            order.expiresAt = server.expiresAt;
+            
+            localStorage.setItem('orders', JSON.stringify(orders));
+            localStorage.setItem('servers', JSON.stringify(servers));
+            
+            setTimeout(() => {
+                hideLoading();
+                closeModal('paymentModal');
+                
+                showToast('Server Created!', 'Your server is now active', 'success');
+                showServerCreatedAlert(server);
+                
+                loadOrders();
+                loadServers();
+                updateOwnerStats();
+            }, 2000);
+        }
+
+        // Show Server Created Alert
+        function showServerCreatedAlert(server) {
+            const alertHtml = `
+                <div class="credentials-box">
+                    <h4><i class="fas fa-check-circle"></i> Server Created Successfully!</h4>
+                    <div class="credential-item">
+                        <span class="credential-label">Panel URL:</span>
+                        <span class="credential-value">
+                            ${CONFIG.pterodactyl.domain || 'Not configured'}
+                            <button class="copy-btn" onclick="copyToClipboard('${CONFIG.pterodactyl.domain}')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </span>
                     </div>
-                `;
+                    <div class="credential-item">
+                        <span class="credential-label">Panel ID:</span>
+                        <span class="credential-value">
+                            ${server.panelId}
+                            <button class="copy-btn" onclick="copyToClipboard('${server.panelId}')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Username:</span>
+                        <span class="credential-value">
+                            ${server.username}
+                            <button class="copy-btn" onclick="copyToClipboard('${server.username}')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-label">Password:</span>
+                        <span class="credential-value">
+                            ${server.password}
+                            <button class="copy-btn" onclick="copyToClipboard('${server.password}')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="alert alert-success" style="margin-top: 15px;">
+                        <i class="fas fa-envelope"></i>
+                        <div>Credentials have been sent to ${server.email}</div>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.createElement('div');
+            container.innerHTML = alertHtml;
+            container.style.position = 'fixed';
+            container.style.top = '50%';
+            container.style.left = '50%';
+            container.style.transform = 'translate(-50%, -50%)';
+            container.style.zIndex = '5000';
+            container.style.maxWidth = '500px';
+            container.style.width = '90%';
+            
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.background = 'rgba(0,0,0,0.8)';
+            overlay.style.zIndex = '4999';
+            overlay.onclick = () => {
+                document.body.removeChild(overlay);
+                document.body.removeChild(container);
+            };
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(container);
+        }
+
+        // Cancel Payment
+        function cancelPayment() {
+            clearInterval(paymentCheckInterval);
+            clearInterval(countdownInterval);
+            closeModal('paymentModal');
+            
+            if (currentOrder) {
+                const order = orders.find(o => o.id === currentOrder.id);
+                if (order && order.status === 'waiting_payment') {
+                    order.status = 'cancelled';
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                }
+            }
+        }
+
+        // Check Payment Status
+        function checkPaymentStatus() {
+            showToast('Checking...', 'Verifying payment status', 'info');
+        }
+
+        // Load Orders
+        function loadOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            const ownerTbody = document.getElementById('ownerOrdersTable');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">No orders yet</td></tr>';
+                if (ownerTbody) ownerTbody.innerHTML = tbody.innerHTML;
                 return;
             }
             
-            serversGrid.innerHTML = '';
+            const sortedOrders = [...orders].reverse();
+            
+            tbody.innerHTML = '';
+            if (ownerTbody) ownerTbody.innerHTML = '';
+            
+            sortedOrders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span style="font-family: 'JetBrains Mono', monospace;">${order.id}</span></td>
+                    <td>${order.planName}</td>
+                    <td style="font-weight: 600;">Rp${order.amount.toLocaleString('id-ID')}</td>
+                    <td><span class="status-badge status-${order.status}">${order.status.replace('_', ' ')}</span></td>
+                    <td>${new Date(order.createdAt).toLocaleDateString('id-ID')}</td>
+                    <td>
+                        ${order.status === 'waiting_payment' ? `<button class="btn btn-primary btn-sm" onclick="resumePayment('${order.id}')"><i class="fas fa-credit-card"></i> Pay</button>` : ''}
+                        ${order.status === 'paid' && order.serverId ? `<button class="btn btn-success btn-sm" onclick="viewServer('${order.serverId}')"><i class="fas fa-server"></i> View</button>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+                
+                if (ownerTbody) {
+                    const ownerRow = row.cloneNode(true);
+                    const cells = ownerRow.getElementsByTagName('td');
+                    cells[1].innerHTML = `<td>${order.email}</td><td>${order.planName}</td>`;
+                    ownerTbody.appendChild(ownerRow);
+                }
+            });
+        }
+
+        // Resume Payment
+        function resumePayment(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                showPaymentModal(order);
+            }
+        }
+
+        // View Server
+        function viewServer(serverId) {
+            showPage('servers');
+            setTimeout(() => {
+                const serverCard = document.querySelector(`[data-server-id="${serverId}"]`);
+                if (serverCard) {
+                    serverCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    serverCard.style.borderColor = 'var(--primary)';
+                    setTimeout(() => serverCard.style.borderColor = '', 2000);
+                }
+            }, 100);
+        }
+
+        // Load Servers
+        function loadServers() {
+            const container = document.getElementById('serversContainer');
+            const ownerContainer = document.getElementById('ownerServersContainer');
+            
+            if (servers.length === 0) {
+                const emptyHtml = `
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                        <i class="fas fa-server" style="font-size: 64px; opacity: 0.3; margin-bottom: 20px;"></i>
+                        <h3>No Servers Yet</h3>
+                        <p>Order your first server to get started</p>
+                    </div>
+                `;
+                container.innerHTML = emptyHtml;
+                if (ownerContainer) ownerContainer.innerHTML = emptyHtml;
+                return;
+            }
+            
+            container.innerHTML = '';
+            if (ownerContainer) ownerContainer.innerHTML = '';
+            
             servers.forEach(server => {
                 const expiryDate = new Date(server.expiresAt);
                 const now = new Date();
@@ -1528,12 +1832,12 @@
                 
                 const card = document.createElement('div');
                 card.className = 'server-card';
+                card.setAttribute('data-server-id', server.id);
                 card.innerHTML = `
                     <div class="server-header">
                         <div>
                             <div class="server-name">${server.name}</div>
-                            <span class="server-status ${isExpired ? 'expired' : 'active'}">
-                                <span class="server-status-dot"></span>
+                            <span class="status-badge status-${isExpired ? 'expired' : 'active'}">
                                 ${isExpired ? 'Expired' : 'Active'}
                             </span>
                         </div>
@@ -1541,7 +1845,11 @@
                     <div class="server-details">
                         <div class="server-detail-item">
                             <span class="server-detail-label">Plan</span>
-                            <span class="server-detail-value">${server.plan}</span>
+                            <span class="server-detail-value">${server.planName}</span>
+                        </div>
+                        <div class="server-detail-item">
+                            <span class="server-detail-label">Panel ID</span>
+                            <span class="server-detail-value">#${server.panelId}</span>
                         </div>
                         <div class="server-detail-item">
                             <span class="server-detail-label">RAM</span>
@@ -1557,14 +1865,23 @@
                         </div>
                         <div class="server-detail-item">
                             <span class="server-detail-label">Expires</span>
-                            <span class="server-detail-value" style="color: ${daysLeft <= 7 && !isExpired ? 'var(--warning)' : isExpired ? 'var(--danger)' : 'var(--primary)'}">
+                            <span class="server-detail-value" style="color: ${isExpired ? 'var(--danger)' : daysLeft <= 7 ? 'var(--warning)' : 'var(--success)'}">
                                 ${isExpired ? 'Expired' : daysLeft + ' days'}
                             </span>
                         </div>
                     </div>
-                    ${server.username && server.password ? `
+                    ${!isExpired ? `
                         <div class="credentials-box">
                             <h4><i class="fas fa-key"></i> Access Credentials</h4>
+                            <div class="credential-item">
+                                <span class="credential-label">Panel URL:</span>
+                                <span class="credential-value">
+                                    ${CONFIG.pterodactyl.domain || 'Not configured'}
+                                    <button class="copy-btn" onclick="copyToClipboard('${CONFIG.pterodactyl.domain}')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </span>
+                            </div>
                             <div class="credential-item">
                                 <span class="credential-label">Username:</span>
                                 <span class="credential-value">
@@ -1585,345 +1902,31 @@
                             </div>
                         </div>
                     ` : ''}
-                    <div class="server-actions">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                         ${!isExpired ? `
-                            <button class="btn btn-primary" onclick="accessPanel('${server.id}')">
+                            <button class="btn btn-primary btn-sm" onclick="accessPanel('${server.id}')">
                                 <i class="fas fa-external-link-alt"></i> Access Panel
                             </button>
-                        ` : ''}
-                        <button class="btn btn-secondary" onclick="renewServer('${server.id}')">
-                            <i class="fas fa-sync-alt"></i> ${isExpired ? 'Reactivate' : 'Extend'}
-                        </button>
-                        ${isExpired ? `
-                            <button class="btn btn-danger" onclick="deleteServer('${server.id}')">
+                            <button class="btn btn-secondary btn-sm" onclick="renewServer('${server.id}')">
+                                <i class="fas fa-sync-alt"></i> Extend
+                            </button>
+                        ` : `
+                            <button class="btn btn-secondary btn-sm" onclick="renewServer('${server.id}')">
+                                <i class="fas fa-redo"></i> Reactivate
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteServer('${server.id}')">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
-                        ` : ''}
+                        `}
                     </div>
                 `;
-                serversGrid.appendChild(card);
+                
+                container.appendChild(card);
+                if (ownerContainer) ownerContainer.appendChild(card.cloneNode(true));
             });
         }
 
-        function updateStats() {
-            const active = servers.filter(s => new Date(s.expiresAt) > new Date()).length;
-            const expiring = servers.filter(s => {
-                const days = Math.ceil((new Date(s.expiresAt) - new Date()) / (1000 * 60 * 60 * 24));
-                return days > 0 && days <= 7;
-            }).length;
-            const spent = servers.reduce((sum, s) => sum + s.price, 0);
-            
-            document.getElementById('totalServers').textContent = active;
-            document.getElementById('expiringServers').textContent = expiring;
-            document.getElementById('totalSpent').textContent = 'Rp' + spent.toLocaleString('id-ID');
-        }
-
-        function loadConfig() {
-            document.getElementById('displayOwnerKey').textContent = CONFIG.ownerKey ? '••••••••••' : 'Not configured';
-            document.getElementById('displayApiKey').textContent = CONFIG.pterodactyl.apiKey || 'Not configured';
-            document.getElementById('displayDomain').textContent = CONFIG.pterodactyl.domain || 'Not configured';
-            document.getElementById('displayPakasirKey').textContent = CONFIG.pakasir.apiKey || 'Not configured';
-            document.getElementById('displayMerchantCode').textContent = CONFIG.pakasir.merchantCode || 'Not configured';
-        }
-
-        function setupPaymentMethods() {
-            const methods = document.querySelectorAll('.payment-method');
-            methods.forEach(method => {
-                method.addEventListener('click', function() {
-                    methods.forEach(m => m.classList.remove('selected'));
-                    this.classList.add('selected');
-                    this.querySelector('input[type="radio"]').checked = true;
-                });
-            });
-        }
-
-        function orderPlan(planId) {
-            openOrderModal();
-            document.getElementById('planSelect').value = planId;
-            updateOrderSummary();
-        }
-
-        function updateOrderSummary() {
-            const planId = document.getElementById('planSelect').value;
-            const duration = parseInt(document.getElementById('duration').value);
-            
-            if (!planId) {
-                document.getElementById('summaryPlan').textContent = '-';
-                document.getElementById('summaryDuration').textContent = '-';
-                document.getElementById('summaryTotal').textContent = 'Rp 0';
-                return;
-            }
-            
-            const plan = PLANS.find(p => p.id === planId);
-            const total = Math.round(plan.price * duration / 30);
-            
-            document.getElementById('summaryPlan').textContent = plan.name;
-            document.getElementById('summaryDuration').textContent = duration + ' days';
-            document.getElementById('summaryTotal').textContent = 'Rp' + total.toLocaleString('id-ID');
-        }
-
-        async function handleOrder(e) {
-            e.preventDefault();
-            
-            if (!CONFIG.pterodactyl.apiKey || !CONFIG.pterodactyl.domain) {
-                showToast('Configuration Required', 'Please configure Pterodactyl settings first', 'error');
-                showSettings();
-                return;
-            }
-            
-            if (!CONFIG.pakasir.apiKey || !CONFIG.pakasir.merchantCode) {
-                showToast('Configuration Required', 'Please configure Pakasir settings first', 'error');
-                showSettings();
-                return;
-            }
-            
-            const planId = document.getElementById('planSelect').value;
-            const serverName = document.getElementById('serverName').value;
-            const serverEmail = document.getElementById('serverEmail').value;
-            const duration = parseInt(document.getElementById('duration').value);
-            const payment = document.querySelector('input[name="payment"]:checked')?.value;
-            
-            if (!payment) {
-                showToast('Error', 'Please select a payment method', 'error');
-                return;
-            }
-            
-            const plan = PLANS.find(p => p.id === planId);
-            const total = Math.round(plan.price * duration / 30);
-            
-            showLoading('Creating order...');
-            
-            // Generate order ID
-            const orderId = 'ORD-' + Date.now();
-            
-            // Create order object
-            currentOrder = {
-                orderId: orderId,
-                serverName: serverName,
-                email: serverEmail,
-                plan: plan,
-                duration: duration,
-                total: total,
-                paymentMethod: payment,
-                status: 'pending',
-                createdAt: new Date().toISOString()
-            };
-            
-            // Simulate payment creation
-            setTimeout(() => {
-                hideLoading();
-                closeModal('orderModal');
-                showPaymentModal();
-            }, 2000);
-        }
-
-        function showPaymentModal() {
-            const modal = document.getElementById('paymentModal');
-            modal.classList.add('active');
-            
-            // Generate QRIS (simulation)
-            const qrisDisplay = document.getElementById('qrisDisplay');
-            qrisDisplay.innerHTML = `
-                <div class="qris-container">
-                    <h4 style="color: var(--dark); margin-bottom: 15px;">Scan QR Code</h4>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=PAKASIR:${currentOrder.orderId}:${currentOrder.total}" alt="QRIS">
-                    <p style="color: var(--dark); margin-top: 15px; font-weight: 600;">Amount: Rp${currentOrder.total.toLocaleString('id-ID')}</p>
-                </div>
-            `;
-            
-            // Instructions
-            const instructions = document.getElementById('paymentInstructions');
-            instructions.innerHTML = `
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <div>
-                        <strong>Payment Instructions:</strong>
-                        <ol style="margin: 10px 0 0 20px; font-size: 14px;">
-                            <li>Open your e-wallet app (GoPay, OVO, DANA, etc.)</li>
-                            <li>Scan the QR code above</li>
-                            <li>Confirm payment of Rp${currentOrder.total.toLocaleString('id-ID')}</li>
-                            <li>Wait for automatic verification</li>
-                        </ol>
-                    </div>
-                </div>
-            `;
-            
-            // Start countdown
-            startCountdown(900); // 15 minutes
-            
-            // Start auto-checking payment
-            startPaymentCheck();
-        }
-
-        function startCountdown(seconds) {
-            let remaining = seconds;
-            const timer = document.getElementById('countdownTimer');
-            
-            countdownInterval = setInterval(() => {
-                const minutes = Math.floor(remaining / 60);
-                const secs = remaining % 60;
-                timer.textContent = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                
-                if (remaining <= 0) {
-                    clearInterval(countdownInterval);
-                    closePaymentModal();
-                    showToast('Payment Expired', 'Payment time has expired. Please try again.', 'error');
-                }
-                
-                remaining--;
-            }, 1000);
-        }
-
-        function startPaymentCheck() {
-            let checkCount = 0;
-            paymentCheckInterval = setInterval(() => {
-                checkCount++;
-                
-                // Simulate payment success after 5 checks (~10 seconds)
-                if (checkCount >= 5) {
-                    clearInterval(paymentCheckInterval);
-                    clearInterval(countdownInterval);
-                    handlePaymentSuccess();
-                }
-            }, 2000);
-        }
-
-        function checkPaymentStatus() {
-            showToast('Checking', 'Verifying payment status...', 'success');
-        }
-
-        async function handlePaymentSuccess() {
-            showLoading('Payment confirmed! Creating your server...');
-            
-            // Generate credentials
-            const username = 'user_' + Date.now().toString().slice(-6);
-            const password = generatePassword();
-            
-            // Create server object
-            const server = {
-                id: 'srv_' + Date.now(),
-                orderId: currentOrder.orderId,
-                name: currentOrder.serverName,
-                email: currentOrder.email,
-                plan: currentOrder.plan.name,
-                ram: currentOrder.plan.ram,
-                cpu: currentOrder.plan.cpu,
-                disk: currentOrder.plan.disk,
-                databases: currentOrder.plan.databases,
-                backups: currentOrder.plan.backups,
-                username: username,
-                password: password,
-                price: currentOrder.total,
-                createdAt: new Date().toISOString(),
-                expiresAt: new Date(Date.now() + currentOrder.duration * 24 * 60 * 60 * 1000).toISOString()
-            };
-            
-            // Simulate server creation
-            setTimeout(() => {
-                servers.push(server);
-                localStorage.setItem('servers', JSON.stringify(servers));
-                
-                hideLoading();
-                closePaymentModal();
-                showSuccessModal(server);
-                
-                loadServers();
-                updateStats();
-            }, 3000);
-        }
-
-        function showSuccessModal(server) {
-            const modal = document.getElementById('successModal');
-            const credentialsDisplay = document.getElementById('credentialsDisplay');
-            
-            credentialsDisplay.innerHTML = `
-                <h4><i class="fas fa-key"></i> Your Server Credentials</h4>
-                <div class="credential-item">
-                    <span class="credential-label">Panel URL:</span>
-                    <span class="credential-value">
-                        ${CONFIG.pterodactyl.domain}
-                        <button class="copy-btn" onclick="copyToClipboard('${CONFIG.pterodactyl.domain}')">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </span>
-                </div>
-                <div class="credential-item">
-                    <span class="credential-label">Username:</span>
-                    <span class="credential-value">
-                        ${server.username}
-                        <button class="copy-btn" onclick="copyToClipboard('${server.username}')">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </span>
-                </div>
-                <div class="credential-item">
-                    <span class="credential-label">Password:</span>
-                    <span class="credential-value">
-                        ${server.password}
-                        <button class="copy-btn" onclick="copyToClipboard('${server.password}')">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </span>
-                </div>
-                <div class="credential-item">
-                    <span class="credential-label">Email:</span>
-                    <span class="credential-value">
-                        ${server.email}
-                        <button class="copy-btn" onclick="copyToClipboard('${server.email}')">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </span>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-        }
-
-        function closeSuccessModal() {
-            closeModal('successModal');
-            showDashboard();
-        }
-
-        function closePaymentModal() {
-            clearInterval(paymentCheckInterval);
-            clearInterval(countdownInterval);
-            closeModal('paymentModal');
-        }
-
-        function generatePassword() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
-            let password = '';
-            for (let i = 0; i < 12; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return password;
-        }
-
-        function renewServer(serverId) {
-            const server = servers.find(s => s.id === serverId);
-            if (!server) return;
-            
-            const plan = PLANS.find(p => p.name === server.plan);
-            if (!plan) return;
-            
-            document.getElementById('planSelect').value = plan.id;
-            document.getElementById('serverName').value = server.name;
-            document.getElementById('serverEmail').value = server.email;
-            updateOrderSummary();
-            openOrderModal();
-        }
-
-        function deleteServer(serverId) {
-            if (!confirm('Are you sure you want to delete this server?')) return;
-            
-            servers = servers.filter(s => s.id !== serverId);
-            localStorage.setItem('servers', JSON.stringify(servers));
-            
-            loadServers();
-            updateStats();
-            showToast('Success', 'Server deleted successfully', 'success');
-        }
-
+        // Access Panel
         function accessPanel(serverId) {
             if (!CONFIG.pterodactyl.domain) {
                 showToast('Error', 'Panel domain not configured', 'error');
@@ -1932,144 +1935,248 @@
             window.open(CONFIG.pterodactyl.domain, '_blank');
         }
 
+        // Renew Server
+        function renewServer(serverId) {
+            const server = servers.find(s => s.id === serverId);
+            if (!server) return;
+            
+            const plan = PLANS.find(p => p.id === server.planId);
+            if (!plan) return;
+            
+            selectPlan(plan.id);
+            document.getElementById('serverName').value = server.name;
+            document.getElementById('customerEmail').value = server.email;
+        }
+
+        // Delete Server
+        function deleteServer(serverId) {
+            if (!confirm('Are you sure you want to delete this server? This action cannot be undone.')) return;
+            
+            servers = servers.filter(s => s.id !== serverId);
+            localStorage.setItem('servers', JSON.stringify(servers));
+            
+            loadServers();
+            updateOwnerStats();
+            showToast('Success', 'Server deleted successfully', 'success');
+        }
+
+        // Start Expiry Check
         function startExpiryCheck() {
             setInterval(() => {
                 const now = new Date();
                 const initialLength = servers.length;
+                
                 servers = servers.filter(server => {
                     const expiryDate = new Date(server.expiresAt);
+                    // Keep server for 24 hours after expiry
                     return expiryDate > now || (now - expiryDate) < 24 * 60 * 60 * 1000;
                 });
                 
                 if (servers.length !== initialLength) {
                     localStorage.setItem('servers', JSON.stringify(servers));
                     loadServers();
-                    updateStats();
+                    updateOwnerStats();
                 }
             }, 60000);
         }
 
-        // Configuration handlers
-        function handleOwnerKeyConfig(e) {
+        // Owner Login
+        function handleOwnerLogin(e) {
             e.preventDefault();
-            const key = document.getElementById('ownerKey').value;
-            CONFIG.ownerKey = key;
-            localStorage.setItem('owner_key', key);
-            loadConfig();
-            closeModal('ownerKeyModal');
-            showToast('Success', 'Owner key saved successfully', 'success');
+            
+            const username = document.getElementById('ownerUsername').value;
+            const password = document.getElementById('ownerPassword').value;
+            
+            if (username === CONFIG.owner.username && password === CONFIG.owner.password) {
+                CONFIG.owner.loggedIn = true;
+                sessionStorage.setItem('owner_logged_in', 'true');
+                
+                document.getElementById('ownerBtn').innerHTML = '<i class="fas fa-tachometer-alt"></i> Owner Panel';
+                document.getElementById('ownerBtn').onclick = () => showPage('owner-dashboard');
+                
+                showPage('owner-dashboard');
+                showToast('Success', 'Logged in as owner', 'success');
+            } else {
+                showToast('Error', 'Invalid credentials', 'error');
+            }
         }
 
-        function handleApiConfig(e) {
+        // Owner Logout
+        function ownerLogout() {
+            CONFIG.owner.loggedIn = false;
+            sessionStorage.removeItem('owner_logged_in');
+            
+            document.getElementById('ownerBtn').innerHTML = '<i class="fas fa-user-shield"></i> Owner Login';
+            document.getElementById('ownerBtn').onclick = () => showPage('owner-login');
+            
+            showPage('home');
+            showToast('Success', 'Logged out', 'success');
+        }
+
+        // Update Owner Stats
+        function updateOwnerStats() {
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('pendingOrders').textContent = orders.filter(o => o.status === 'waiting_payment').length;
+            document.getElementById('activeServers').textContent = servers.filter(s => new Date(s.expiresAt) > new Date()).length;
+            
+            const revenue = orders.filter(o => o.status === 'paid').reduce((sum, o) => sum + o.amount, 0);
+            document.getElementById('totalRevenue').textContent = 'Rp' + revenue.toLocaleString('id-ID');
+        }
+
+        // Config Modal
+        function openConfigModal(type) {
+            currentConfigType = type;
+            const modal = document.getElementById('configModal');
+            const title = document.getElementById('configModalTitle');
+            const label = document.getElementById('configLabel');
+            const hint = document.getElementById('configHint');
+            const input = document.getElementById('configValue');
+            
+            const configs = {
+                api: {
+                    title: 'Pterodactyl API Key',
+                    label: 'API Key',
+                    hint: 'Application API key from Admin Panel → Application API',
+                    value: CONFIG.pterodactyl.apiKey
+                },
+                domain: {
+                    title: 'Panel Domain',
+                    label: 'Panel URL',
+                    hint: 'Your Pterodactyl panel URL (e.g., https://panel.example.com)',
+                    value: CONFIG.pterodactyl.domain
+                },
+                pakasir: {
+                    title: 'Pakasir API Key',
+                    label: 'API Key',
+                    hint: 'From app.pakasir.com → Settings → API',
+                    value: CONFIG.pakasir.apiKey
+                },
+                merchant: {
+                    title: 'Pakasir Merchant ID',
+                    label: 'Merchant ID',
+                    hint: 'Your merchant/store ID from Pakasir',
+                    value: CONFIG.pakasir.merchantId
+                },
+                node: {
+                    title: 'Default Node ID',
+                    label: 'Node ID',
+                    hint: 'Node ID for server deployment (usually 1)',
+                    value: CONFIG.pterodactyl.nodeId
+                },
+                location: {
+                    title: 'Default Location ID',
+                    label: 'Location ID',
+                    hint: 'Location ID for servers (usually 1)',
+                    value: CONFIG.pterodactyl.locationId
+                }
+            };
+            
+            const config = configs[type];
+            title.textContent = config.title;
+            label.textContent = config.label;
+            hint.textContent = config.hint;
+            input.value = config.value;
+            
+            modal.classList.add('active');
+        }
+
+        // Save Config
+        function handleConfigSave(e) {
             e.preventDefault();
-            const apiKey = document.getElementById('apiKey').value;
-            CONFIG.pterodactyl.apiKey = apiKey;
-            localStorage.setItem('ptero_api_key', apiKey);
-            loadConfig();
-            closeModal('apiModal');
-            showToast('Success', 'API key saved successfully', 'success');
+            
+            const value = document.getElementById('configValue').value;
+            
+            const configs = {
+                api: () => {
+                    CONFIG.pterodactyl.apiKey = value;
+                    localStorage.setItem('ptero_api_key', value);
+                    document.getElementById('displayApiKey').textContent = value;
+                },
+                domain: () => {
+                    CONFIG.pterodactyl.domain = value;
+                    localStorage.setItem('ptero_domain', value);
+                    document.getElementById('displayDomain').textContent = value;
+                },
+                pakasir: () => {
+                    CONFIG.pakasir.apiKey = value;
+                    localStorage.setItem('pakasir_api_key', value);
+                    document.getElementById('displayPakasirKey').textContent = value;
+                },
+                merchant: () => {
+                    CONFIG.pakasir.merchantId = value;
+                    localStorage.setItem('pakasir_merchant_id', value);
+                    document.getElementById('displayMerchantId').textContent = value;
+                },
+                node: () => {
+                    CONFIG.pterodactyl.nodeId = value;
+                    localStorage.setItem('ptero_node_id', value);
+                    document.getElementById('displayNodeId').textContent = value;
+                },
+                location: () => {
+                    CONFIG.pterodactyl.locationId = value;
+                    localStorage.setItem('ptero_location_id', value);
+                    document.getElementById('displayLocationId').textContent = value;
+                }
+            };
+            
+            if (configs[currentConfigType]) {
+                configs[currentConfigType]();
+                closeModal('configModal');
+                showToast('Success', 'Configuration saved', 'success');
+            }
         }
 
-        function handleDomainConfig(e) {
-            e.preventDefault();
-            const domain = document.getElementById('panelDomain').value;
-            CONFIG.pterodactyl.domain = domain;
-            localStorage.setItem('ptero_domain', domain);
-            loadConfig();
-            closeModal('domainModal');
-            showToast('Success', 'Panel domain saved successfully', 'success');
+        // Utilities
+        function setupPaymentMethods() {
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                    this.querySelector('input[type="radio"]').checked = true;
+                });
+            });
         }
 
-        function handlePakasirConfig(e) {
-            e.preventDefault();
-            const apiKey = document.getElementById('pakasirKey').value;
-            CONFIG.pakasir.apiKey = apiKey;
-            localStorage.setItem('pakasir_api_key', apiKey);
-            loadConfig();
-            closeModal('pakasirModal');
-            showToast('Success', 'Pakasir API key saved successfully', 'success');
+        function generatePassword(length = 16) {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789@#$%';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
         }
 
-        function handleMerchantConfig(e) {
-            e.preventDefault();
-            const code = document.getElementById('merchantCode').value;
-            CONFIG.pakasir.merchantCode = code;
-            localStorage.setItem('merchant_code', code);
-            loadConfig();
-            closeModal('merchantModal');
-            showToast('Success', 'Merchant code saved successfully', 'success');
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied!', 'Text copied to clipboard', 'success');
+            });
         }
 
-        // Modal functions
-        function openOrderModal() {
-            document.getElementById('orderModal').classList.add('active');
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            const pageMap = {
+                'home': 'homePage',
+                'orders': 'ordersPage',
+                'servers': 'serversPage',
+                'owner-login': 'ownerLoginPage',
+                'owner-dashboard': 'ownerDashboard'
+            };
+            
+            document.getElementById(pageMap[pageId]).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function openOwnerKeyModal() {
-            document.getElementById('ownerKey').value = '';
-            document.getElementById('ownerKeyModal').classList.add('active');
-        }
-
-        function openApiModal() {
-            document.getElementById('apiKey').value = CONFIG.pterodactyl.apiKey;
-            document.getElementById('apiModal').classList.add('active');
-        }
-
-        function openDomainModal() {
-            document.getElementById('panelDomain').value = CONFIG.pterodactyl.domain;
-            document.getElementById('domainModal').classList.add('active');
-        }
-
-        function openPakasirModal() {
-            document.getElementById('pakasirKey').value = CONFIG.pakasir.apiKey;
-            document.getElementById('pakasirModal').classList.add('active');
-        }
-
-        function openMerchantModal() {
-            document.getElementById('merchantCode').value = CONFIG.pakasir.merchantCode;
-            document.getElementById('merchantModal').classList.add('active');
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Navigation
-        function showDashboard() {
-            document.getElementById('dashboard').classList.add('active');
-            document.getElementById('settingsPanel').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showSettings() {
-            if (!CONFIG.ownerKey) {
-                openOwnerKeyModal();
-                return;
-            }
-            
-            const key = prompt('Enter owner access key:');
-            if (key !== CONFIG.ownerKey) {
-                showToast('Access Denied', 'Invalid access key', 'error');
-                return;
-            }
-            
-            showDashboard();
-            document.getElementById('settingsPanel').style.display = 'block';
-        }
-
-        // Utility functions
-        function showToast(title, message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.className = `toast ${type} show`;
-            document.getElementById('toastTitle').textContent = title;
-            document.getElementById('toastMessage').textContent = message;
-            
-            const icon = toast.querySelector('i');
-            icon.className = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
         }
 
         function showLoading(text) {
@@ -2081,25 +2188,17 @@
             document.getElementById('loadingOverlay').classList.remove('active');
         }
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Copied', 'Copied to clipboard!', 'success');
-            });
+        function showToast(title, message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.className = `toast ${type} show`;
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+            
+            const icon = toast.querySelector('i');
+            icon.className = type === 'error' ? 'fas fa-exclamation-circle' : type === 'info' ? 'fas fa-info-circle' : 'fas fa-check-circle';
+            
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
     </script>
 </body>
 </html>
